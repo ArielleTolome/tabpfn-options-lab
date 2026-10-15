@@ -1,0 +1,159 @@
+1
+00:00:00,000 --> 00:00:01,625
+A model can look brilliant if it learns
+
+2
+00:00:01,660 --> 00:00:04,748
+from tomorrow. In options research, that mistake can
+
+3
+00:00:04,807 --> 00:00:07,860
+hide inside a single timestamp. I'm Ariel, and
+
+4
+00:00:07,918 --> 00:00:10,159
+this is Tab P F N Options Lab:
+
+5
+00:00:10,333 --> 00:00:12,341
+a reproducible way to ask what a model
+
+6
+00:00:12,411 --> 00:00:15,233
+could actually know before a decision. The project
+
+7
+00:00:15,279 --> 00:00:18,507
+builds on my research into defined-risk options spreads.
+
+8
+00:00:18,832 --> 00:00:22,663
+Each candidate becomes six numbers: implied volatility rank,
+
+9
+00:00:22,814 --> 00:00:27,388
+the implied-minus-realized volatility spread, the VIX term-structure ratio,
+
+10
+00:00:27,539 --> 00:00:30,720
+relative strength, credit divided by spread width, and
+
+11
+00:00:30,790 --> 00:00:34,076
+short-option delta. The target is reaching fifty percent
+
+12
+00:00:34,122 --> 00:00:37,582
+gross profit before the twenty-one-day management exit. That
+
+13
+00:00:37,628 --> 00:00:39,579
+is not the same as an after-fee winning
+
+14
+00:00:39,648 --> 00:00:42,539
+trade. The central rule is simple. A training
+
+15
+00:00:42,609 --> 00:00:46,255
+outcome must resolve strictly before the prediction timestamp.
+
+16
+00:00:46,533 --> 00:00:49,296
+Open trades stay out. Outcomes arriving at the
+
+17
+00:00:49,354 --> 00:00:52,083
+exact decision time stay out too. Only then
+
+18
+00:00:52,141 --> 00:00:54,776
+do we select the rolling history. The comparison
+
+19
+00:00:54,834 --> 00:00:58,178
+model also purges training outcomes that cross its
+
+20
+00:00:58,224 --> 00:01:02,381
+validation boundary. The runnable demonstration uses genuine Tab
+
+21
+00:01:02,427 --> 00:01:05,295
+P F N three point five inference, alongside
+
+22
+00:01:05,388 --> 00:01:08,441
+X G Boost and a historical target-success rate.
+
+23
+00:01:08,685 --> 00:01:11,704
+They see the same eligible examples. The report
+
+24
+00:01:11,762 --> 00:01:15,953
+exposes probabilities, Brier scores, training counts, and label
+
+25
+00:01:16,023 --> 00:01:19,947
+cutoffs. The included data are synthetic. These scores
+
+26
+00:01:20,017 --> 00:01:23,116
+demonstrate the workflow, not a trading edge. That
+
+27
+00:01:23,175 --> 00:01:26,855
+distinction matters. The original paper studied Tab P
+
+28
+00:01:27,064 --> 00:01:30,976
+F N three, and its historical machine-learning comparison
+
+29
+00:01:31,046 --> 00:01:34,215
+remains blocked by authorized data export. We do
+
+30
+00:01:34,297 --> 00:01:36,920
+not relabel those results as three point five.
+
+31
+00:01:37,199 --> 00:01:41,135
+The paper preserves negative findings, execution failures, and
+
+32
+00:01:41,205 --> 00:01:44,084
+the limits of the evidence. Neither this demo
+
+33
+00:01:44,293 --> 00:01:48,554
+nor its probability-based sizing illustration sends orders. Clone
+
+34
+00:01:48,577 --> 00:01:51,573
+the repository, install the dependencies, and run the
+
+35
+00:01:51,631 --> 00:01:54,592
+demo. Inspect the report, read the paper, and
+
+36
+00:01:54,650 --> 00:01:58,493
+bring your own appropriately licensed data. The contribution
+
+37
+00:01:58,562 --> 00:02:00,826
+is not a promise of profit. It is
+
+38
+00:02:00,884 --> 00:02:04,170
+a transparent path from information available then, to
+
+39
+00:02:04,286 --> 00:02:06,747
+a prediction you can audit now. Tab P
+
+40
+00:02:07,189 --> 00:02:11,241
+F N Options Lab. Research first. Claims second.

@@ -1,0 +1,43 @@
+{
+  "provider": "ElevenLabs",
+  "voice": "Ariel’s Voice",
+  "disclosure": "AI-generated narration using the author’s authorized cloned voice.",
+  "scenes": [
+    {
+      "id": "scene1",
+      "text": "A model can look brilliant if it learns from tomorrow. In options research, that mistake can hide inside a single timestamp. I'm Ariel, and this is Tab P F N Options Lab: a reproducible way to ask what a model could actually know before a decision.",
+      "start": 0,
+      "end": 14.35
+    },
+    {
+      "id": "scene2",
+      "text": "The project builds on my research into defined-risk options spreads. Each candidate becomes six numbers: implied volatility rank, the implied-minus-realized volatility spread, the VIX term-structure ratio, relative strength, credit divided by spread width, and short-option delta. The target is reaching fifty percent gross profit before the twenty-one-day management exit. That is not the same as an after-fee winning trade.",
+      "start": 14.675,
+      "end": 40.113
+    },
+    {
+      "id": "scene3",
+      "text": "The central rule is simple. A training outcome must resolve strictly before the prediction timestamp. Open trades stay out. Outcomes arriving at the exact decision time stay out too. Only then do we select the rolling history. The comparison model also purges training outcomes that cross its validation boundary.",
+      "start": 40.287,
+      "end": 59.49
+    },
+    {
+      "id": "scene4",
+      "text": "The runnable demonstration uses genuine Tab P F N three point five inference, alongside X G Boost and a historical target-success rate. They see the same eligible examples. The report exposes probabilities, Brier scores, training counts, and label cutoffs. The included data are synthetic. These scores demonstrate the workflow, not a trading edge.",
+      "start": 59.734,
+      "end": 82.397
+    },
+    {
+      "id": "scene5",
+      "text": "That distinction matters. The original paper studied Tab P F N three, and its historical machine-learning comparison remains blocked by authorized data export. We do not relabel those results as three point five. The paper preserves negative findings, execution failures, and the limits of the evidence. Neither this demo nor its probability-based sizing illustration sends orders.",
+      "start": 82.838,
+      "end": 107.997
+    },
+    {
+      "id": "scene6",
+      "text": "Clone the repository, install the dependencies, and run the demo. Inspect the report, read the paper, and bring your own appropriately licensed data. The contribution is not a promise of profit. It is a transparent path from information available then, to a prediction you can audit now. Tab P F N Options Lab. Research first. Claims second.",
+      "start": 108.241,
+      "end": 131.241
+    }
+  ]
+}

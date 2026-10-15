@@ -1,0 +1,26 @@
+TabPFN Options Lab — research publication boundary
+
+The research manuscript and figures reproduce and adapt author-held work by
+Ariel Tolome. This public edition is a preprint, not a peer-reviewed paper.
+Publication here does not assert endorsement by Columbia University,
+QuantConnect, Prior Labs, a journal, or any funding body.
+
+The repository's Apache License 2.0 applies to its public source-code release
+and accompanying usage documentation, not to the research manuscript, its
+PDF, research figures, or separately supplied audiovisual media. Those assets
+retain their existing rights; this release makes no new blanket license grant
+for them. Third-party citations and trademarks retain their respective rights.
+
+Only the derived source-code component is covered by the original MIT notice
+in ORIGINAL_CODE_LICENSE.txt. That software notice is preserved for attribution
+and does not relicense the manuscript, figures, data, or model weights.
+
+No QuantConnect datasets, raw result dumps, package ledgers, source snapshots,
+private logs, correspondence, account credentials, or TabPFN weights are
+included in this research directory. Aggregate tables and figures are research
+exhibits, not a dataset export or a grant of access to private cloud projects.
+
+The original study specifies TabPFN-3. The separate runnable public harness
+specifies TabPFN-3.5. Neither the original blocked historical ML comparison nor
+the synthetic public example establishes calibrated market probabilities,
+consistent after-cost profitability, a trading edge, or live-trading safety.

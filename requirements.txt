@@ -1,0 +1,5 @@
+# Python 3.12+; obtain model weights separately under PriorLabs' terms.
+# CUDA use additionally requires a compatible PyTorch build and NVIDIA driver.
+tabpfn==9.2.0
+xgboost==3.4.1
+numpy==2.5.4

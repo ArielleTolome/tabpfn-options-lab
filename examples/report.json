@@ -1,0 +1,1233 @@
+{
+  "schema_version": 1,
+  "project": "TabPFN Options Lab",
+  "data_kind": "synthetic",
+  "notice": "SYNTHETIC DATA \u2014 generated features and Bernoulli labels, not market performance.",
+  "input_sha256": "9d5c9abd9f4b57901d9db113f6547a0a334ac323b335c9d1d0404da9e6265147",
+  "features": [
+    "iv_rank_30d",
+    "vrp_spread",
+    "vix_slope",
+    "underlying_rsi",
+    "net_credit_yield",
+    "short_delta"
+  ],
+  "device_requested": "cuda",
+  "n_history": 560,
+  "protocol": {
+    "min_train": 500,
+    "max_train": 5000,
+    "label_cutoff": "label_time < candidate.entry_time",
+    "rolling_order": "Filter resolved labels, sort by entry_time then label_time, take last 5000",
+    "xgboost_tuning": "Last 20% by entry time validate; purge training labels >= first validation entry; minimize Brier over depth {2,3} \u00d7 learning_rate {0.03,0.1}; refit all eligible rows",
+    "tiers": "p < 0.82: 0; 0.82 <= p < 0.90: 1; p >= 0.90: 2 illustrative contracts",
+    "limitations": "No orders, price paths, transaction costs, P&L, Sharpe, drawdown, Kelly optimization, or claim of real-market superiority. Candidate outcomes are for retrospective scoring only until resolved."
+  },
+  "models": {
+    "empirical": {
+      "label": "Causal empirical rate",
+      "n_candidates": 12,
+      "brier_score": 0.1393588573746881
+    },
+    "xgboost": {
+      "label": "Tuned XGBoost",
+      "n_candidates": 12,
+      "brier_score": 0.14411565518261207
+    },
+    "tabpfn": {
+      "label": "TabPFN-3.5",
+      "n_candidates": 12,
+      "brier_score": 0.12939240867712196
+    }
+  },
+  "predictions": [
+    {
+      "x": [
+        46.680351,
+        0.00227889,
+        1.0075,
+        40.537587,
+        0.078888,
+        -0.130053
+      ],
+      "y": 1,
+      "entry_time": "2021-08-23T15:00:00Z",
+      "label_time": "2021-09-07T15:00:00Z",
+      "id": "synthetic-01",
+      "models": {
+        "empirical": {
+          "p": 0.8142857142857143,
+          "illustrative_contracts": 0,
+          "as_of": "2021-08-23T15:00:00Z",
+          "n_train": 560,
+          "latest_label_time": "2021-07-28T15:00:00Z",
+          "first_training_entry_time": "2020-01-01T15:00:00Z",
+          "model": "historical_target_success_rate",
+          "model_version": null,
+          "version": "stdlib",
+          "hyperparameters": {},
+          "inference_seconds": 9.740004315972328e-06,
+          "fit_seconds": 0.0,
+          "total_seconds": 6.548105739057064e-05,
+          "refit": false,
+          "status": "ready"
+        },
+        "xgboost": {
+          "p": 0.8651532530784607,
+          "illustrative_contracts": 1,
+          "as_of": "2021-08-23T15:00:00Z",
+          "n_train": 560,
+          "latest_label_time": "2021-07-28T15:00:00Z",
+          "first_training_entry_time": "2020-01-01T15:00:00Z",
+          "model": "XGBClassifier",
+          "model_version": null,
+          "version": "3.4.1",
+          "hyperparameters": {
+            "n_estimators": 100,
+            "random_state": 42,
+            "n_jobs": 1,
+            "objective": "binary:logistic",
+            "eval_metric": "logloss",
+            "tree_method": "hist",
+            "device": "cpu",
+            "max_depth": 2,
+            "learning_rate": 0.03
+          },
+          "inference_seconds": 0.0004311649827286601,
+          "fit_seconds": 0.8708278810372576,
+          "total_seconds": 0.8713237869087607,
+          "refit": true,
+          "status": "ready",
+          "tuning": {
+            "n_train": 433,
+            "n_validation": 112,
+            "n_purged": 15,
+            "first_validation_entry_time": "2021-03-24T15:00:00Z",
+            "latest_training_label_time": "2021-03-22T15:00:00Z"
+          },
+          "validation_brier": 0.1345260154410845
+        },
+        "tabpfn": {
+          "p": 0.8192125558853149,
+          "illustrative_contracts": 0,
+          "as_of": "2021-08-23T15:00:00Z",
+          "n_train": 560,
+          "latest_label_time": "2021-07-28T15:00:00Z",
+          "first_training_entry_time": "2020-01-01T15:00:00Z",
+          "model": "TabPFNClassifier",
+          "model_version": "v3.5",
+          "version": "9.2.0",
+          "hyperparameters": {
+            "device": "cuda",
+            "random_state": 42,
+            "n_preprocessing_jobs": 1,
+            "checkpoint_filename": "tabpfn-v3.5-20260909.safetensors",
+            "n_estimators": "auto",
+            "resolved_n_estimators": 8,
+            "fit_mode": "fit_preprocessors"
+          },
+          "inference_seconds": 0.42193569196388125,
+          "fit_seconds": 1.608268405077979,
+          "total_seconds": 2.0302645380143076,
+          "refit": true,
+          "status": "ready",
+          "loaded_architectures": [
+            "TabPFN-v3.5"
+          ],
+          "resolved_devices": [
+            "cuda:0"
+          ]
+        }
+      }
+    },
+    {
+      "x": [
+        83.1056,
+        0.02375131,
+        1.1298,
+        69.19464,
+        0.119957,
+        -0.154995
+      ],
+      "y": 1,
+      "entry_time": "2021-08-30T15:00:00Z",
+      "label_time": "2021-09-14T15:00:00Z",
+      "id": "synthetic-02",
+      "models": {
+        "empirical": {
+          "p": 0.8142857142857143,
+          "illustrative_contracts": 0,
+          "as_of": "2021-08-30T15:00:00Z",
+          "n_train": 560,
+          "latest_label_time": "2021-07-28T15:00:00Z",
+          "first_training_entry_time": "2020-01-01T15:00:00Z",
+          "model": "historical_target_success_rate",
+          "model_version": null,
+          "version": "stdlib",
+          "hyperparameters": {},
+          "inference_seconds": 9.290059097111225e-06,
+          "fit_seconds": 0.0,
+          "total_seconds": 6.556091830134392e-05,
+          "refit": false,
+          "status": "ready"
+        },
+        "xgboost": {
+          "p": 0.8585511445999146,
+          "illustrative_contracts": 1,
+          "as_of": "2021-08-30T15:00:00Z",
+          "n_train": 560,
+          "latest_label_time": "2021-07-28T15:00:00Z",
+          "first_training_entry_time": "2020-01-01T15:00:00Z",
+          "model": "XGBClassifier",
+          "model_version": null,
+          "version": "3.4.1",
+          "hyperparameters": {
+            "n_estimators": 100,
+            "random_state": 42,
+            "n_jobs": 1,
+            "objective": "binary:logistic",
+            "eval_metric": "logloss",
+            "tree_method": "hist",
+            "device": "cpu",
+            "max_depth": 2,
+            "learning_rate": 0.03
+          },
+          "inference_seconds": 0.0009156710002571344,
+          "fit_seconds": 0.0,
+          "total_seconds": 0.000987862003967166,
+          "refit": false,
+          "status": "ready",
+          "tuning": {
+            "n_train": 433,
+            "n_validation": 112,
+            "n_purged": 15,
+            "first_validation_entry_time": "2021-03-24T15:00:00Z",
+            "latest_training_label_time": "2021-03-22T15:00:00Z"
+          },
+          "validation_brier": 0.1345260154410845
+        },
+        "tabpfn": {
+          "p": 0.8186743259429932,
+          "illustrative_contracts": 0,
+          "as_of": "2021-08-30T15:00:00Z",
+          "n_train": 560,
+          "latest_label_time": "2021-07-28T15:00:00Z",
+          "first_training_entry_time": "2020-01-01T15:00:00Z",
+          "model": "TabPFNClassifier",
+          "model_version": "v3.5",
+          "version": "9.2.0",
+          "hyperparameters": {
+            "device": "cuda",
+            "random_state": 42,
+            "n_preprocessing_jobs": 1,
+            "checkpoint_filename": "tabpfn-v3.5-20260909.safetensors",
+            "n_estimators": "auto",
+            "resolved_n_estimators": 8,
+            "fit_mode": "fit_preprocessors"
+          },
+          "inference_seconds": 0.04440121806692332,
+          "fit_seconds": 0.0,
+          "total_seconds": 0.04447996895760298,
+          "refit": false,
+          "status": "ready",
+          "loaded_architectures": [
+            "TabPFN-v3.5"
+          ],
+          "resolved_devices": [
+            "cuda:0"
+          ]
+        }
+      }
+    },
+    {
+      "x": [
+        62.360787,
+        0.0212932,
+        1.083594,
+        47.301902,
+        0.23347,
+        -0.175695
+      ],
+      "y": 0,
+      "entry_time": "2021-09-06T15:00:00Z",
+      "label_time": "2021-09-18T15:00:00Z",
+      "id": "synthetic-03",
+      "models": {
+        "empirical": {
+          "p": 0.8142857142857143,
+          "illustrative_contracts": 0,
+          "as_of": "2021-09-06T15:00:00Z",
+          "n_train": 560,
+          "latest_label_time": "2021-07-28T15:00:00Z",
+          "first_training_entry_time": "2020-01-01T15:00:00Z",
+          "model": "historical_target_success_rate",
+          "model_version": null,
+          "version": "stdlib",
+          "hyperparameters": {},
+          "inference_seconds": 9.279930964112282e-06,
+          "fit_seconds": 0.0,
+          "total_seconds": 9.215099271386862e-05,
+          "refit": false,
+          "status": "ready"
+        },
+        "xgboost": {
+          "p": 0.8210428357124329,
+          "illustrative_contracts": 1,
+          "as_of": "2021-09-06T15:00:00Z",
+          "n_train": 560,
+          "latest_label_time": "2021-07-28T15:00:00Z",
+          "first_training_entry_time": "2020-01-01T15:00:00Z",
+          "model": "XGBClassifier",
+          "model_version": null,
+          "version": "3.4.1",
+          "hyperparameters": {
+            "n_estimators": 100,
+            "random_state": 42,
+            "n_jobs": 1,
+            "objective": "binary:logistic",
+            "eval_metric": "logloss",
+            "tree_method": "hist",
+            "device": "cpu",
+            "max_depth": 2,
+            "learning_rate": 0.03
+          },
+          "inference_seconds": 0.0005316870519891381,
+          "fit_seconds": 0.0,
+          "total_seconds": 0.0006094180280342698,
+          "refit": false,
+          "status": "ready",
+          "tuning": {
+            "n_train": 433,
+            "n_validation": 112,
+            "n_purged": 15,
+            "first_validation_entry_time": "2021-03-24T15:00:00Z",
+            "latest_training_label_time": "2021-03-22T15:00:00Z"
+          },
+          "validation_brier": 0.1345260154410845
+        },
+        "tabpfn": {
+          "p": 0.8308128714561462,
+          "illustrative_contracts": 1,
+          "as_of": "2021-09-06T15:00:00Z",
+          "n_train": 560,
+          "latest_label_time": "2021-07-28T15:00:00Z",
+          "first_training_entry_time": "2020-01-01T15:00:00Z",
+          "model": "TabPFNClassifier",
+          "model_version": "v3.5",
+          "version": "9.2.0",
+          "hyperparameters": {
+            "device": "cuda",
+            "random_state": 42,
+            "n_preprocessing_jobs": 1,
+            "checkpoint_filename": "tabpfn-v3.5-20260909.safetensors",
+            "n_estimators": "auto",
+            "resolved_n_estimators": 8,
+            "fit_mode": "fit_preprocessors"
+          },
+          "inference_seconds": 0.048028031014837325,
+          "fit_seconds": 0.0,
+          "total_seconds": 0.04809659195598215,
+          "refit": false,
+          "status": "ready",
+          "loaded_architectures": [
+            "TabPFN-v3.5"
+          ],
+          "resolved_devices": [
+            "cuda:0"
+          ]
+        }
+      }
+    },
+    {
+      "x": [
+        6.31422,
+        0.08549214,
+        1.015214,
+        33.565408,
+        0.208353,
+        -0.214234
+      ],
+      "y": 1,
+      "entry_time": "2021-09-13T15:00:00Z",
+      "label_time": "2021-10-01T15:00:00Z",
+      "id": "synthetic-04",
+      "models": {
+        "empirical": {
+          "p": 0.8146167557932263,
+          "illustrative_contracts": 0,
+          "as_of": "2021-09-13T15:00:00Z",
+          "n_train": 561,
+          "latest_label_time": "2021-09-07T15:00:00Z",
+          "first_training_entry_time": "2020-01-01T15:00:00Z",
+          "model": "historical_target_success_rate",
+          "model_version": null,
+          "version": "stdlib",
+          "hyperparameters": {},
+          "inference_seconds": 9.09995287656784e-06,
+          "fit_seconds": 0.0,
+          "total_seconds": 0.0001027919352054596,
+          "refit": false,
+          "status": "ready"
+        },
+        "xgboost": {
+          "p": 0.7433874011039734,
+          "illustrative_contracts": 0,
+          "as_of": "2021-09-13T15:00:00Z",
+          "n_train": 561,
+          "latest_label_time": "2021-09-07T15:00:00Z",
+          "first_training_entry_time": "2020-01-01T15:00:00Z",
+          "model": "XGBClassifier",
+          "model_version": null,
+          "version": "3.4.1",
+          "hyperparameters": {
+            "n_estimators": 100,
+            "random_state": 42,
+            "n_jobs": 1,
+            "objective": "binary:logistic",
+            "eval_metric": "logloss",
+            "tree_method": "hist",
+            "device": "cpu",
+            "max_depth": 3,
+            "learning_rate": 0.03
+          },
+          "inference_seconds": 0.0006063480395823717,
+          "fit_seconds": 0.17526680300943553,
+          "total_seconds": 0.17596128198783845,
+          "refit": true,
+          "status": "ready",
+          "tuning": {
+            "n_train": 433,
+            "n_validation": 113,
+            "n_purged": 15,
+            "first_validation_entry_time": "2021-03-24T15:00:00Z",
+            "latest_training_label_time": "2021-03-22T15:00:00Z"
+          },
+          "validation_brier": 0.13338118611047886
+        },
+        "tabpfn": {
+          "p": 0.7728273868560791,
+          "illustrative_contracts": 0,
+          "as_of": "2021-09-13T15:00:00Z",
+          "n_train": 561,
+          "latest_label_time": "2021-09-07T15:00:00Z",
+          "first_training_entry_time": "2020-01-01T15:00:00Z",
+          "model": "TabPFNClassifier",
+          "model_version": "v3.5",
+          "version": "9.2.0",
+          "hyperparameters": {
+            "device": "cuda",
+            "random_state": 42,
+            "n_preprocessing_jobs": 1,
+            "checkpoint_filename": "tabpfn-v3.5-20260909.safetensors",
+            "n_estimators": "auto",
+            "resolved_n_estimators": 8,
+            "fit_mode": "fit_preprocessors"
+          },
+          "inference_seconds": 0.04417183599434793,
+          "fit_seconds": 0.3334933699807152,
+          "total_seconds": 0.37774406699463725,
+          "refit": true,
+          "status": "ready",
+          "loaded_architectures": [
+            "TabPFN-v3.5"
+          ],
+          "resolved_devices": [
+            "cuda:0"
+          ]
+        }
+      }
+    },
+    {
+      "x": [
+        59.090114,
+        0.06824677,
+        1.04135,
+        51.29103,
+        0.127858,
+        -0.119611
+      ],
+      "y": 1,
+      "entry_time": "2021-09-20T15:00:00Z",
+      "label_time": "2021-09-26T15:00:00Z",
+      "id": "synthetic-05",
+      "models": {
+        "empirical": {
+          "p": 0.8134991119005328,
+          "illustrative_contracts": 0,
+          "as_of": "2021-09-20T15:00:00Z",
+          "n_train": 563,
+          "latest_label_time": "2021-09-18T15:00:00Z",
+          "first_training_entry_time": "2020-01-01T15:00:00Z",
+          "model": "historical_target_success_rate",
+          "model_version": null,
+          "version": "stdlib",
+          "hyperparameters": {},
+          "inference_seconds": 1.9059982150793076e-05,
+          "fit_seconds": 0.0,
+          "total_seconds": 0.00017069198656827211,
+          "refit": false,
+          "status": "ready"
+        },
+        "xgboost": {
+          "p": 0.7739514708518982,
+          "illustrative_contracts": 0,
+          "as_of": "2021-09-20T15:00:00Z",
+          "n_train": 563,
+          "latest_label_time": "2021-09-18T15:00:00Z",
+          "first_training_entry_time": "2020-01-01T15:00:00Z",
+          "model": "XGBClassifier",
+          "model_version": null,
+          "version": "3.4.1",
+          "hyperparameters": {
+            "n_estimators": 100,
+            "random_state": 42,
+            "n_jobs": 1,
+            "objective": "binary:logistic",
+            "eval_metric": "logloss",
+            "tree_method": "hist",
+            "device": "cpu",
+            "max_depth": 2,
+            "learning_rate": 0.03
+          },
+          "inference_seconds": 0.0004076448967680335,
+          "fit_seconds": 0.17684723297134042,
+          "total_seconds": 0.1773539889836684,
+          "refit": true,
+          "status": "ready",
+          "tuning": {
+            "n_train": 436,
+            "n_validation": 113,
+            "n_purged": 14,
+            "first_validation_entry_time": "2021-03-26T15:00:00Z",
+            "latest_training_label_time": "2021-03-25T15:00:00Z"
+          },
+          "validation_brier": 0.14027016790209287
+        },
+        "tabpfn": {
+          "p": 0.82937091588974,
+          "illustrative_contracts": 1,
+          "as_of": "2021-09-20T15:00:00Z",
+          "n_train": 563,
+          "latest_label_time": "2021-09-18T15:00:00Z",
+          "first_training_entry_time": "2020-01-01T15:00:00Z",
+          "model": "TabPFNClassifier",
+          "model_version": "v3.5",
+          "version": "9.2.0",
+          "hyperparameters": {
+            "device": "cuda",
+            "random_state": 42,
+            "n_preprocessing_jobs": 1,
+            "checkpoint_filename": "tabpfn-v3.5-20260909.safetensors",
+            "n_estimators": "auto",
+            "resolved_n_estimators": 8,
+            "fit_mode": "fit_preprocessors"
+          },
+          "inference_seconds": 0.04411187500227243,
+          "fit_seconds": 0.1928493760060519,
+          "total_seconds": 0.23702452203724533,
+          "refit": true,
+          "status": "ready",
+          "loaded_architectures": [
+            "TabPFN-v3.5"
+          ],
+          "resolved_devices": [
+            "cuda:0"
+          ]
+        }
+      }
+    },
+    {
+      "x": [
+        58.431541,
+        -0.01111065,
+        1.025332,
+        71.792049,
+        0.111493,
+        -0.124249
+      ],
+      "y": 1,
+      "entry_time": "2021-09-27T15:00:00Z",
+      "label_time": "2021-10-08T15:00:00Z",
+      "id": "synthetic-06",
+      "models": {
+        "empirical": {
+          "p": 0.8138297872340425,
+          "illustrative_contracts": 0,
+          "as_of": "2021-09-27T15:00:00Z",
+          "n_train": 564,
+          "latest_label_time": "2021-09-26T15:00:00Z",
+          "first_training_entry_time": "2020-01-01T15:00:00Z",
+          "model": "historical_target_success_rate",
+          "model_version": null,
+          "version": "stdlib",
+          "hyperparameters": {},
+          "inference_seconds": 8.610077202320099e-06,
+          "fit_seconds": 0.0,
+          "total_seconds": 7.553992327302694e-05,
+          "refit": false,
+          "status": "ready"
+        },
+        "xgboost": {
+          "p": 0.7831951975822449,
+          "illustrative_contracts": 0,
+          "as_of": "2021-09-27T15:00:00Z",
+          "n_train": 564,
+          "latest_label_time": "2021-09-26T15:00:00Z",
+          "first_training_entry_time": "2020-01-01T15:00:00Z",
+          "model": "XGBClassifier",
+          "model_version": null,
+          "version": "3.4.1",
+          "hyperparameters": {
+            "n_estimators": 100,
+            "random_state": 42,
+            "n_jobs": 1,
+            "objective": "binary:logistic",
+            "eval_metric": "logloss",
+            "tree_method": "hist",
+            "device": "cpu",
+            "max_depth": 2,
+            "learning_rate": 0.03
+          },
+          "inference_seconds": 0.0005803270032629371,
+          "fit_seconds": 0.17528290394693613,
+          "total_seconds": 0.17593183100689203,
+          "refit": true,
+          "status": "ready",
+          "tuning": {
+            "n_train": 437,
+            "n_validation": 113,
+            "n_purged": 14,
+            "first_validation_entry_time": "2021-03-27T15:00:00Z",
+            "latest_training_label_time": "2021-03-26T15:00:00Z"
+          },
+          "validation_brier": 0.13428604899246246
+        },
+        "tabpfn": {
+          "p": 0.8185676336288452,
+          "illustrative_contracts": 0,
+          "as_of": "2021-09-27T15:00:00Z",
+          "n_train": 564,
+          "latest_label_time": "2021-09-26T15:00:00Z",
+          "first_training_entry_time": "2020-01-01T15:00:00Z",
+          "model": "TabPFNClassifier",
+          "model_version": "v3.5",
+          "version": "9.2.0",
+          "hyperparameters": {
+            "device": "cuda",
+            "random_state": 42,
+            "n_preprocessing_jobs": 1,
+            "checkpoint_filename": "tabpfn-v3.5-20260909.safetensors",
+            "n_estimators": "auto",
+            "resolved_n_estimators": 8,
+            "fit_mode": "fit_preprocessors"
+          },
+          "inference_seconds": 0.04572815401479602,
+          "fit_seconds": 0.16995851893443614,
+          "total_seconds": 0.2157748140161857,
+          "refit": true,
+          "status": "ready",
+          "loaded_architectures": [
+            "TabPFN-v3.5"
+          ],
+          "resolved_devices": [
+            "cuda:0"
+          ]
+        }
+      }
+    },
+    {
+      "x": [
+        15.820305,
+        -0.00172532,
+        0.910899,
+        61.540443,
+        0.17601,
+        -0.169499
+      ],
+      "y": 1,
+      "entry_time": "2021-10-04T15:00:00Z",
+      "label_time": "2021-10-23T15:00:00Z",
+      "id": "synthetic-07",
+      "models": {
+        "empirical": {
+          "p": 0.8141592920353983,
+          "illustrative_contracts": 0,
+          "as_of": "2021-10-04T15:00:00Z",
+          "n_train": 565,
+          "latest_label_time": "2021-10-01T15:00:00Z",
+          "first_training_entry_time": "2020-01-01T15:00:00Z",
+          "model": "historical_target_success_rate",
+          "model_version": null,
+          "version": "stdlib",
+          "hyperparameters": {},
+          "inference_seconds": 8.639995940029621e-06,
+          "fit_seconds": 0.0,
+          "total_seconds": 6.668106652796268e-05,
+          "refit": false,
+          "status": "ready"
+        },
+        "xgboost": {
+          "p": 0.7996959090232849,
+          "illustrative_contracts": 0,
+          "as_of": "2021-10-04T15:00:00Z",
+          "n_train": 565,
+          "latest_label_time": "2021-10-01T15:00:00Z",
+          "first_training_entry_time": "2020-01-01T15:00:00Z",
+          "model": "XGBClassifier",
+          "model_version": null,
+          "version": "3.4.1",
+          "hyperparameters": {
+            "n_estimators": 100,
+            "random_state": 42,
+            "n_jobs": 1,
+            "objective": "binary:logistic",
+            "eval_metric": "logloss",
+            "tree_method": "hist",
+            "device": "cpu",
+            "max_depth": 3,
+            "learning_rate": 0.03
+          },
+          "inference_seconds": 0.0005944169824942946,
+          "fit_seconds": 0.17151132808066905,
+          "total_seconds": 0.17218618595506996,
+          "refit": true,
+          "status": "ready",
+          "tuning": {
+            "n_train": 438,
+            "n_validation": 113,
+            "n_purged": 14,
+            "first_validation_entry_time": "2021-03-28T15:00:00Z",
+            "latest_training_label_time": "2021-03-27T15:00:00Z"
+          },
+          "validation_brier": 0.13350367346923198
+        },
+        "tabpfn": {
+          "p": 0.805870771408081,
+          "illustrative_contracts": 0,
+          "as_of": "2021-10-04T15:00:00Z",
+          "n_train": 565,
+          "latest_label_time": "2021-10-01T15:00:00Z",
+          "first_training_entry_time": "2020-01-01T15:00:00Z",
+          "model": "TabPFNClassifier",
+          "model_version": "v3.5",
+          "version": "9.2.0",
+          "hyperparameters": {
+            "device": "cuda",
+            "random_state": 42,
+            "n_preprocessing_jobs": 1,
+            "checkpoint_filename": "tabpfn-v3.5-20260909.safetensors",
+            "n_estimators": "auto",
+            "resolved_n_estimators": 8,
+            "fit_mode": "fit_preprocessors"
+          },
+          "inference_seconds": 0.043883860926143825,
+          "fit_seconds": 0.16220855596475303,
+          "total_seconds": 0.20619186805561185,
+          "refit": true,
+          "status": "ready",
+          "loaded_architectures": [
+            "TabPFN-v3.5"
+          ],
+          "resolved_devices": [
+            "cuda:0"
+          ]
+        }
+      }
+    },
+    {
+      "x": [
+        90.2343,
+        0.04138626,
+        0.893343,
+        43.303363,
+        0.142373,
+        -0.205411
+      ],
+      "y": 1,
+      "entry_time": "2021-10-11T15:00:00Z",
+      "label_time": "2021-10-23T15:00:00Z",
+      "id": "synthetic-08",
+      "models": {
+        "empirical": {
+          "p": 0.8144876325088339,
+          "illustrative_contracts": 0,
+          "as_of": "2021-10-11T15:00:00Z",
+          "n_train": 566,
+          "latest_label_time": "2021-10-08T15:00:00Z",
+          "first_training_entry_time": "2020-01-01T15:00:00Z",
+          "model": "historical_target_success_rate",
+          "model_version": null,
+          "version": "stdlib",
+          "hyperparameters": {},
+          "inference_seconds": 1.1311029084026814e-05,
+          "fit_seconds": 0.0,
+          "total_seconds": 9.678199421614408e-05,
+          "refit": false,
+          "status": "ready"
+        },
+        "xgboost": {
+          "p": 0.9295238852500916,
+          "illustrative_contracts": 2,
+          "as_of": "2021-10-11T15:00:00Z",
+          "n_train": 566,
+          "latest_label_time": "2021-10-08T15:00:00Z",
+          "first_training_entry_time": "2020-01-01T15:00:00Z",
+          "model": "XGBClassifier",
+          "model_version": null,
+          "version": "3.4.1",
+          "hyperparameters": {
+            "n_estimators": 100,
+            "random_state": 42,
+            "n_jobs": 1,
+            "objective": "binary:logistic",
+            "eval_metric": "logloss",
+            "tree_method": "hist",
+            "device": "cpu",
+            "max_depth": 3,
+            "learning_rate": 0.03
+          },
+          "inference_seconds": 0.0004963460378348827,
+          "fit_seconds": 0.183435412007384,
+          "total_seconds": 0.18401294900104403,
+          "refit": true,
+          "status": "ready",
+          "tuning": {
+            "n_train": 438,
+            "n_validation": 114,
+            "n_purged": 14,
+            "first_validation_entry_time": "2021-03-28T15:00:00Z",
+            "latest_training_label_time": "2021-03-27T15:00:00Z"
+          },
+          "validation_brier": 0.1326720684953887
+        },
+        "tabpfn": {
+          "p": 0.8533042669296265,
+          "illustrative_contracts": 1,
+          "as_of": "2021-10-11T15:00:00Z",
+          "n_train": 566,
+          "latest_label_time": "2021-10-08T15:00:00Z",
+          "first_training_entry_time": "2020-01-01T15:00:00Z",
+          "model": "TabPFNClassifier",
+          "model_version": "v3.5",
+          "version": "9.2.0",
+          "hyperparameters": {
+            "device": "cuda",
+            "random_state": 42,
+            "n_preprocessing_jobs": 1,
+            "checkpoint_filename": "tabpfn-v3.5-20260909.safetensors",
+            "n_estimators": "auto",
+            "resolved_n_estimators": 8,
+            "fit_mode": "fit_preprocessors"
+          },
+          "inference_seconds": 0.04278375790454447,
+          "fit_seconds": 0.1675163300242275,
+          "total_seconds": 0.21037664893083274,
+          "refit": true,
+          "status": "ready",
+          "loaded_architectures": [
+            "TabPFN-v3.5"
+          ],
+          "resolved_devices": [
+            "cuda:0"
+          ]
+        }
+      }
+    },
+    {
+      "x": [
+        56.515772,
+        0.03366775,
+        1.007565,
+        42.471717,
+        0.082101,
+        -0.114316
+      ],
+      "y": 1,
+      "entry_time": "2021-10-18T15:00:00Z",
+      "label_time": "2021-10-23T15:00:00Z",
+      "id": "synthetic-09",
+      "models": {
+        "empirical": {
+          "p": 0.8144876325088339,
+          "illustrative_contracts": 0,
+          "as_of": "2021-10-18T15:00:00Z",
+          "n_train": 566,
+          "latest_label_time": "2021-10-08T15:00:00Z",
+          "first_training_entry_time": "2020-01-01T15:00:00Z",
+          "model": "historical_target_success_rate",
+          "model_version": null,
+          "version": "stdlib",
+          "hyperparameters": {},
+          "inference_seconds": 1.004000660032034e-05,
+          "fit_seconds": 0.0,
+          "total_seconds": 0.00012532109394669533,
+          "refit": false,
+          "status": "ready"
+        },
+        "xgboost": {
+          "p": 0.8974941968917847,
+          "illustrative_contracts": 1,
+          "as_of": "2021-10-18T15:00:00Z",
+          "n_train": 566,
+          "latest_label_time": "2021-10-08T15:00:00Z",
+          "first_training_entry_time": "2020-01-01T15:00:00Z",
+          "model": "XGBClassifier",
+          "model_version": null,
+          "version": "3.4.1",
+          "hyperparameters": {
+            "n_estimators": 100,
+            "random_state": 42,
+            "n_jobs": 1,
+            "objective": "binary:logistic",
+            "eval_metric": "logloss",
+            "tree_method": "hist",
+            "device": "cpu",
+            "max_depth": 3,
+            "learning_rate": 0.03
+          },
+          "inference_seconds": 0.0007609999738633633,
+          "fit_seconds": 0.0,
+          "total_seconds": 0.0008652809774503112,
+          "refit": false,
+          "status": "ready",
+          "tuning": {
+            "n_train": 438,
+            "n_validation": 114,
+            "n_purged": 14,
+            "first_validation_entry_time": "2021-03-28T15:00:00Z",
+            "latest_training_label_time": "2021-03-27T15:00:00Z"
+          },
+          "validation_brier": 0.1326720684953887
+        },
+        "tabpfn": {
+          "p": 0.8290307521820068,
+          "illustrative_contracts": 1,
+          "as_of": "2021-10-18T15:00:00Z",
+          "n_train": 566,
+          "latest_label_time": "2021-10-08T15:00:00Z",
+          "first_training_entry_time": "2020-01-01T15:00:00Z",
+          "model": "TabPFNClassifier",
+          "model_version": "v3.5",
+          "version": "9.2.0",
+          "hyperparameters": {
+            "device": "cuda",
+            "random_state": 42,
+            "n_preprocessing_jobs": 1,
+            "checkpoint_filename": "tabpfn-v3.5-20260909.safetensors",
+            "n_estimators": "auto",
+            "resolved_n_estimators": 8,
+            "fit_mode": "fit_preprocessors"
+          },
+          "inference_seconds": 0.043606938095763326,
+          "fit_seconds": 0.0,
+          "total_seconds": 0.043694979045540094,
+          "refit": false,
+          "status": "ready",
+          "loaded_architectures": [
+            "TabPFN-v3.5"
+          ],
+          "resolved_devices": [
+            "cuda:0"
+          ]
+        }
+      }
+    },
+    {
+      "x": [
+        33.827946,
+        0.04065805,
+        0.819702,
+        30.926606,
+        0.217381,
+        -0.169359
+      ],
+      "y": 0,
+      "entry_time": "2021-10-25T15:00:00Z",
+      "label_time": "2021-11-15T15:00:00Z",
+      "id": "synthetic-10",
+      "models": {
+        "empirical": {
+          "p": 0.8154657293497364,
+          "illustrative_contracts": 0,
+          "as_of": "2021-10-25T15:00:00Z",
+          "n_train": 569,
+          "latest_label_time": "2021-10-23T15:00:00Z",
+          "first_training_entry_time": "2020-01-01T15:00:00Z",
+          "model": "historical_target_success_rate",
+          "model_version": null,
+          "version": "stdlib",
+          "hyperparameters": {},
+          "inference_seconds": 9.210081771016121e-06,
+          "fit_seconds": 0.0,
+          "total_seconds": 0.00010625098366290331,
+          "refit": false,
+          "status": "ready"
+        },
+        "xgboost": {
+          "p": 0.8853929042816162,
+          "illustrative_contracts": 1,
+          "as_of": "2021-10-25T15:00:00Z",
+          "n_train": 569,
+          "latest_label_time": "2021-10-23T15:00:00Z",
+          "first_training_entry_time": "2020-01-01T15:00:00Z",
+          "model": "XGBClassifier",
+          "model_version": null,
+          "version": "3.4.1",
+          "hyperparameters": {
+            "n_estimators": 100,
+            "random_state": 42,
+            "n_jobs": 1,
+            "objective": "binary:logistic",
+            "eval_metric": "logloss",
+            "tree_method": "hist",
+            "device": "cpu",
+            "max_depth": 3,
+            "learning_rate": 0.1
+          },
+          "inference_seconds": 0.0007560189114883542,
+          "fit_seconds": 0.17416730104014277,
+          "total_seconds": 0.17501540097873658,
+          "refit": true,
+          "status": "ready",
+          "tuning": {
+            "n_train": 439,
+            "n_validation": 114,
+            "n_purged": 16,
+            "first_validation_entry_time": "2021-03-31T15:00:00Z",
+            "latest_training_label_time": "2021-03-30T15:00:00Z"
+          },
+          "validation_brier": 0.12433869615101797
+        },
+        "tabpfn": {
+          "p": 0.7343521118164062,
+          "illustrative_contracts": 0,
+          "as_of": "2021-10-25T15:00:00Z",
+          "n_train": 569,
+          "latest_label_time": "2021-10-23T15:00:00Z",
+          "first_training_entry_time": "2020-01-01T15:00:00Z",
+          "model": "TabPFNClassifier",
+          "model_version": "v3.5",
+          "version": "9.2.0",
+          "hyperparameters": {
+            "device": "cuda",
+            "random_state": 42,
+            "n_preprocessing_jobs": 1,
+            "checkpoint_filename": "tabpfn-v3.5-20260909.safetensors",
+            "n_estimators": "auto",
+            "resolved_n_estimators": 8,
+            "fit_mode": "fit_preprocessors"
+          },
+          "inference_seconds": 0.04566268308553845,
+          "fit_seconds": 0.15819923602975905,
+          "total_seconds": 0.20398878201376647,
+          "refit": true,
+          "status": "ready",
+          "loaded_architectures": [
+            "TabPFN-v3.5"
+          ],
+          "resolved_devices": [
+            "cuda:0"
+          ]
+        }
+      }
+    },
+    {
+      "x": [
+        26.831195,
+        -0.01387066,
+        0.81941,
+        45.802002,
+        0.172496,
+        -0.216371
+      ],
+      "y": 1,
+      "entry_time": "2021-11-01T15:00:00Z",
+      "label_time": "2021-11-11T15:00:00Z",
+      "id": "synthetic-11",
+      "models": {
+        "empirical": {
+          "p": 0.8154657293497364,
+          "illustrative_contracts": 0,
+          "as_of": "2021-11-01T15:00:00Z",
+          "n_train": 569,
+          "latest_label_time": "2021-10-23T15:00:00Z",
+          "first_training_entry_time": "2020-01-01T15:00:00Z",
+          "model": "historical_target_success_rate",
+          "model_version": null,
+          "version": "stdlib",
+          "hyperparameters": {},
+          "inference_seconds": 9.399955160915852e-06,
+          "fit_seconds": 0.0,
+          "total_seconds": 9.838095866143703e-05,
+          "refit": false,
+          "status": "ready"
+        },
+        "xgboost": {
+          "p": 0.9420711994171143,
+          "illustrative_contracts": 2,
+          "as_of": "2021-11-01T15:00:00Z",
+          "n_train": 569,
+          "latest_label_time": "2021-10-23T15:00:00Z",
+          "first_training_entry_time": "2020-01-01T15:00:00Z",
+          "model": "XGBClassifier",
+          "model_version": null,
+          "version": "3.4.1",
+          "hyperparameters": {
+            "n_estimators": 100,
+            "random_state": 42,
+            "n_jobs": 1,
+            "objective": "binary:logistic",
+            "eval_metric": "logloss",
+            "tree_method": "hist",
+            "device": "cpu",
+            "max_depth": 3,
+            "learning_rate": 0.1
+          },
+          "inference_seconds": 0.0005097159883007407,
+          "fit_seconds": 0.0,
+          "total_seconds": 0.0006132069975137711,
+          "refit": false,
+          "status": "ready",
+          "tuning": {
+            "n_train": 439,
+            "n_validation": 114,
+            "n_purged": 16,
+            "first_validation_entry_time": "2021-03-31T15:00:00Z",
+            "latest_training_label_time": "2021-03-30T15:00:00Z"
+          },
+          "validation_brier": 0.12433869615101797
+        },
+        "tabpfn": {
+          "p": 0.8316395878791809,
+          "illustrative_contracts": 1,
+          "as_of": "2021-11-01T15:00:00Z",
+          "n_train": 569,
+          "latest_label_time": "2021-10-23T15:00:00Z",
+          "first_training_entry_time": "2020-01-01T15:00:00Z",
+          "model": "TabPFNClassifier",
+          "model_version": "v3.5",
+          "version": "9.2.0",
+          "hyperparameters": {
+            "device": "cuda",
+            "random_state": 42,
+            "n_preprocessing_jobs": 1,
+            "checkpoint_filename": "tabpfn-v3.5-20260909.safetensors",
+            "n_estimators": "auto",
+            "resolved_n_estimators": 8,
+            "fit_mode": "fit_preprocessors"
+          },
+          "inference_seconds": 0.04317861294839531,
+          "fit_seconds": 0.0,
+          "total_seconds": 0.043239293969236314,
+          "refit": false,
+          "status": "ready",
+          "loaded_architectures": [
+            "TabPFN-v3.5"
+          ],
+          "resolved_devices": [
+            "cuda:0"
+          ]
+        }
+      }
+    },
+    {
+      "x": [
+        78.916706,
+        -0.0096708,
+        1.00491,
+        65.909637,
+        0.075711,
+        -0.162779
+      ],
+      "y": 1,
+      "entry_time": "2021-11-08T15:00:00Z",
+      "label_time": "2021-11-27T15:00:00Z",
+      "id": "synthetic-12",
+      "models": {
+        "empirical": {
+          "p": 0.8154657293497364,
+          "illustrative_contracts": 0,
+          "as_of": "2021-11-08T15:00:00Z",
+          "n_train": 569,
+          "latest_label_time": "2021-10-23T15:00:00Z",
+          "first_training_entry_time": "2020-01-01T15:00:00Z",
+          "model": "historical_target_success_rate",
+          "model_version": null,
+          "version": "stdlib",
+          "hyperparameters": {},
+          "inference_seconds": 8.750008419156075e-06,
+          "fit_seconds": 0.0,
+          "total_seconds": 7.743097376078367e-05,
+          "refit": false,
+          "status": "ready"
+        },
+        "xgboost": {
+          "p": 0.8987062573432922,
+          "illustrative_contracts": 1,
+          "as_of": "2021-11-08T15:00:00Z",
+          "n_train": 569,
+          "latest_label_time": "2021-10-23T15:00:00Z",
+          "first_training_entry_time": "2020-01-01T15:00:00Z",
+          "model": "XGBClassifier",
+          "model_version": null,
+          "version": "3.4.1",
+          "hyperparameters": {
+            "n_estimators": 100,
+            "random_state": 42,
+            "n_jobs": 1,
+            "objective": "binary:logistic",
+            "eval_metric": "logloss",
+            "tree_method": "hist",
+            "device": "cpu",
+            "max_depth": 3,
+            "learning_rate": 0.1
+          },
+          "inference_seconds": 0.00046341598499566317,
+          "fit_seconds": 0.0,
+          "total_seconds": 0.0005556070245802402,
+          "refit": false,
+          "status": "ready",
+          "tuning": {
+            "n_train": 439,
+            "n_validation": 114,
+            "n_purged": 16,
+            "first_validation_entry_time": "2021-03-31T15:00:00Z",
+            "latest_training_label_time": "2021-03-30T15:00:00Z"
+          },
+          "validation_brier": 0.12433869615101797
+        },
+        "tabpfn": {
+          "p": 0.8350701332092285,
+          "illustrative_contracts": 1,
+          "as_of": "2021-11-08T15:00:00Z",
+          "n_train": 569,
+          "latest_label_time": "2021-10-23T15:00:00Z",
+          "first_training_entry_time": "2020-01-01T15:00:00Z",
+          "model": "TabPFNClassifier",
+          "model_version": "v3.5",
+          "version": "9.2.0",
+          "hyperparameters": {
+            "device": "cuda",
+            "random_state": 42,
+            "n_preprocessing_jobs": 1,
+            "checkpoint_filename": "tabpfn-v3.5-20260909.safetensors",
+            "n_estimators": "auto",
+            "resolved_n_estimators": 8,
+            "fit_mode": "fit_preprocessors"
+          },
+          "inference_seconds": 0.04422340600285679,
+          "fit_seconds": 0.0,
+          "total_seconds": 0.04429752705618739,
+          "refit": false,
+          "status": "ready",
+          "loaded_architectures": [
+            "TabPFN-v3.5"
+          ],
+          "resolved_devices": [
+            "cuda:0"
+          ]
+        }
+      }
+    }
+  ]
+}
